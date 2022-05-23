@@ -1,0 +1,6 @@
+<%=bootstrap_form_for @book do |f| %>
+  <%= f.text_field :title, required: true %>
+  <%= f.text_field :author, required: true %>
+  <%= f.select :category_id, Category.all.pluck(:name, :id), required: true %>
+  <%= f.submit %>
+<% end %>

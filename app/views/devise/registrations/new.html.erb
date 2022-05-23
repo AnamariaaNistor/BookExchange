@@ -1,0 +1,59 @@
+<!-- component -->
+<!-- This is an example component
+    Instagram: ccornejo__ -->
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false }) do |f| %>
+  <div class='grid grid-cols-12'>
+    <div class="col-span-4 text-black font-sans font-bold bg-[#F4ECEC] min-h-screen px-16">
+      <div class="grid grid-rows-6 grid-flow-col min-h-screen items-center justify-items-start">
+        <div class="row-span-3 row-start-2 text-4xl">
+          Sign Up
+          <div class="pt-10">
+            <label class="text-sm font-sans font-medium">
+              Email
+            </label>
+            <%= f.email_field :email,placeholder: "Write your email",
+                              class: "w-full bg-white py-3 px-12 border hover: border-gray-500 rounded shadow text-base font-sans" %>
+          </div>
+          <div class="pt-2">
+            <label class="text-sm font-sans font-medium">
+              Password
+            </label>
+            <%= f.password_field :password, placeholder: "Write your password",
+                                 class: " w-full bg-white py-3 px-12 border hover: border-gray-500 rounded shadow text-base font-sans" %>
+          </div>
+          <div class="pt-2">
+            <label class="text-sm font-sans font-medium">
+              Password confirmation
+            </label>
+            <%= f.password_field :password_confirmation, placeholder: "Confirm your password",
+                                 class: " w-full bg-white py-3 px-12 border hover: border-gray-500 rounded shadow text-base font-sans" %>
+          </div>
+          <!-- Button -->
+          <div class="text-sm font-sans font-medium w-full pt-14">
+            <%= button_to "Sign up", new_session_path(resource_name), type: "button",class: "text-center w-full py-4 bg-violet-700 hover:bg-violet-400 rounded-md text-white"  %>
+          </div>
+
+          <% resource.errors.full_messages.each do |msg| %>
+            <div class="text-sm font-sans font-medium text-red-600 pt-2"><%= msg %></div>
+          <% end %>
+        </div>
+        <%= link_to "You have an account? Sign in", new_session_path(resource_name), class:"text-sm font-sans font-medium text-gray-400 underline" %>
+      </div>
+    </div>
+
+    <!-- Second column image -->
+    <div class="banner col-span-8 text-white font-sans font-bold">
+      <!-- Aquí iría algún comentario -->
+    </div>
+  </div>
+
+
+
+  <style>
+      .banner {
+          background: url( 'https://images.unsplash.com/photo-1519682577862-22b62b24e493?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' );
+          background-repeat: no-repeat;
+          background-size: cover
+      }
+  </style>
+<% end %>
