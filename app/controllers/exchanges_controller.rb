@@ -21,7 +21,7 @@ class ExchangesController < ApplicationController
 
   # POST /exchanges or /exchanges.json
   def create
-    @exchange = Exchange.new(exchange_params)
+    @exchange = Exchange.new(exchange_params.merge(sending_user_id: current_user.id))
 
     respond_to do |format|
       if @exchange.save
@@ -66,6 +66,6 @@ class ExchangesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def exchange_params
-    params.require(:exchange).permit(:sending_user_id, :sended_book_id, :details)
+    params.require(:exchange).permit(:sended_book_id, :details, :type_of_exchange)
   end
 end

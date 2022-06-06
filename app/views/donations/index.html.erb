@@ -19,6 +19,9 @@
       <div id="tab-contents">
         <div id="first" class="p-4">
           <span class="mx-10 mt-6 text-4xl no-underline">My donations</span>
+          <button class="ml-20 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2">
+            <%= link_to "New donation", new_donation_url, class: "text-white font-bold no-underline" %>
+          </button>
           <div class="mx-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-8 bg-transparent max-h-[150%] drop-shadow-md">
             <% if @my_donations.nil? %>
               <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>
@@ -48,6 +51,9 @@
         </div>
         <div id="second" class="hidden p-4">
           <span class="mx-10 mt-6 text-4xl no-underline">Others exchanges</span>
+          <button class="ml-20 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2">
+            <%= link_to "New donation", new_donation_url, class: "text-white font-bold no-underline" %>
+          </button>
           <div class="mx-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-8 bg-transparent max-h-[150%] drop-shadow-md">
             <% if @others_donations.nil? %>
               <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>

@@ -23,7 +23,7 @@ class DonationsController < ApplicationController
 
   # POST /donations or /donations.json
   def create
-    @donation = Donation.new(donation_params)
+    @donation = Donation.new(donation_params.merge(sending_user_id: current_user.id))
 
     respond_to do |format|
       if @donation.save
@@ -67,6 +67,6 @@ class DonationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def donation_params
-      params.require(:donation).permit(:sending_status, :recieving_status, :process_status)
+      params.require(:donation).permit(:sended_book_id, :sending_status, :recieving_status, :process_status)
     end
 end
