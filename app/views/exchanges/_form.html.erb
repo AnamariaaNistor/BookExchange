@@ -1,0 +1,39 @@
+<<<<<<< Updated upstream
+=======
+<%= form_with(model: exchange, class: "mx-20 my-10") do |form| %>
+
+  <% if exchange.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(exchange.errors.count, "error") %> prohibited this exchange from being saved:</h2>
+
+      <ul>
+        <% exchange.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-2" for="grid-category">
+        Book to be donated
+      </label>
+      <div class="relative">
+
+        <%= form.select(:sended_book_id, Book.where(user_id: current_user.id).pluck(:title, :id),{:id => 'grid-category', :prompt => 'Select book'}, {:class => "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"} )%>
+
+      </div>
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+        Details of the exchange
+      </label>
+      <%= form.text_field :details, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 mt-3 leading-tight focus:outline-none focus:bg-white", id: "grid-title", type: "text",placeholder: "Details"%>
+    </div>
+  </div>
+
+  <div class="flex justify-center">
+    <%= form.submit class: "mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline" %>
+  </div>
+<% end %>
+>>>>>>> Stashed changes

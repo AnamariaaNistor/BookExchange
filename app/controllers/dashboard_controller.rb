@@ -2,8 +2,7 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @exchanges = Exchange.first(12)
-    @donations = Donation.first(12)
-    # render 'dashboard/index',  @exchanges,  @donations
+    @exchanges = Exchange.includes([:sended_book, :sending_user]).where(process_status: 'waiting').first(12)
+    @donations = Donation.includes([:sended_book, :sending_user]).where(process_status: 'waiting').first(12)
   end
 end
