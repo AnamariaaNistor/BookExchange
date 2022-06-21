@@ -33,8 +33,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_080204) do
 
   create_table "donations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "details"
-    t.integer "sending_status"
-    t.integer "recieving_status"
     t.integer "process_status"
     t.bigint "sending_user_id", null: false
     t.bigint "recieving_user_id"
@@ -47,8 +45,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_080204) do
   end
 
   create_table "exchanges", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "sending_status"
-    t.integer "recieving_status"
     t.integer "process_status"
     t.integer "type_of_exchange"
     t.string "details"
@@ -67,13 +63,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_080204) do
 
   create_table "requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "status"
+    t.string "details"
     t.bigint "request_user_id", null: false
-    t.bigint "exchange_book_id", null: false
+    t.bigint "request_book_id", null: false
     t.bigint "exchange_requested_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exchange_book_id"], name: "index_requests_on_exchange_book_id"
     t.index ["exchange_requested_id"], name: "index_requests_on_exchange_requested_id"
+    t.index ["request_book_id"], name: "index_requests_on_request_book_id"
     t.index ["request_user_id"], name: "index_requests_on_request_user_id"
   end
 
@@ -103,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_080204) do
   add_foreign_key "exchanges", "books", column: "sended_book_id"
   add_foreign_key "exchanges", "users", column: "recieving_user_id"
   add_foreign_key "exchanges", "users", column: "sending_user_id"
-  add_foreign_key "requests", "books", column: "exchange_book_id"
+  add_foreign_key "requests", "books", column: "request_book_id"
   add_foreign_key "requests", "exchanges", column: "exchange_requested_id"
   add_foreign_key "requests", "users", column: "request_user_id"
 end

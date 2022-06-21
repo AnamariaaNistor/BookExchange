@@ -13,19 +13,41 @@ end
 
 unless User.any?
   10.times do
-    FactoryBot.create(:user, :with_books, count: 5)
+    FactoryBot.create(:user, :with_books, count: 20)
   end
 end
 
 unless Exchange.any?
-  20.times do
-    FactoryBot.create(:exchange)
+  User.all.each do |user|
+    15.times do
+      FactoryBot.create(:exchange, sending_user: user)
+    end
+  end
+
+  User.all.each do |user|
+    15.times do
+      FactoryBot.create(:exchange, sending_user: user, recieving_user: nil, process_status: 0)
+    end
   end
 end
 
 unless Donation.any?
-  20.times do
-    FactoryBot.create(:donation)
+  User.all.each do |user|
+    15.times do
+      FactoryBot.create(:donation, sending_user: user)
+    end
+  end
+
+  User.all.each do |user|
+    15.times do
+      FactoryBot.create(:donation, sending_user: user, recieving_user: nil, process_status: 0)
+    end
+  end
+end
+
+unless Request.any?
+  100.times do
+    FactoryBot.create(:request)
   end
 end
 

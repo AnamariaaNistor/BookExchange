@@ -1,10 +1,62 @@
-<p style="color: green"><%= notice %></p>
+<div class="min-h-screen flex flex-row bg-gray-100">
+  <%= render('partials/navbar') %>
+  <main class="min-h-screen w-full bg-[#F4ECEC]">
+    <div class="flex h-screen justify-center items-center">
+      <div class="text-left">
+        <div class=" my-10 text-center">
+          <p class="text-4xl mx-2 font-semibold">Process status:</p>
+          <p class="text-3xl mx-2"><%= @exchange.process_status.capitalize %></p>
+<!--          TODO: mark as in progress/done ?? -->
+        </div>
+        <div class="grid grid-cols-2">
+          <div>
+            <p class="text-4xl mb-0 mx-2 font-semibold">Exchanging book:</p>
+            <p class="text-3xl mb-0 mx-2"><%= @exchange.sended_book.title %></p>
+            <p class="text-4xl mx-2 font-semibold">Exchanging book author:</p>
+            <p class="text-3xl mx-2 "><%= @exchange.sended_book.author %></p>
+            <p class="text-4xl mx-2 font-semibold">Exchanging book category:</p>
+            <p class="text-3xl mx-2"><%= @exchange.sended_book.category.name %></p>
+            <p class="text-4xl mx-2 font-semibold">Exchanging book owner:</p>
+            <p class="text-3xl mx-2"><%= @exchange.sending_user.email %></p>
+          </div>
 
-<%= render @exchange %>
+          <div>
+            <% if @exchange.recieved_book %>
+              <p class="text-4xl mb-0 mx-2 font-semibold">Exchanged book:</p>
+              <p class="text-3xl mb-0 mx-2"><%= @exchange.recieved_book.title %></p>
+              <p class="text-4xl mx-2 font-semibold">Exchanged book author:</p>
+              <p class="text-3xl mx-2 "><%= @exchange.recieved_book.author %></p>
+              <p class="text-4xl mx-2 font-semibold">Exchanged book category:</p>
+              <p class="text-3xl mx-2"><%= @exchange.recieved_book.category.name %></p>
+              <p class="text-4xl mx-2 font-semibold">Exchanged book owner:</p>
+              <p class="text-3xl mx-2"><%= @exchange.recieving_user.email %></p>
+            <% end %>
+          </div>
+        </div>
 
-<div>
-  <%= link_to "Edit this exchange", edit_exchange_path(@exchange) %> |
-  <%= link_to "Back to exchanges", exchanges_path %>
 
-  <%= button_to "Destroy this exchange", @exchange, method: :delete %>
+        <% if @exchange.sending_user.id == current_user.id %>
+          <div class="grid grid-cols-2">
+            <button class="mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline">
+              <%= link_to "Edit this exchange", edit_exchange_path(@exchange), class: "text-white font-bold no-underline"%>
+            </button>
+            <button class="mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline">
+              <%= link_to "Delete this exchange", @exchange, data: { method: :delete }%>
+            </button>
+          </div>
+        <% else %>
+          <div class="grid grid-cols-2">
+            <button class="mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline">
+              <%= link_to "Apply to this exchange", new_request_url(exchange_id: @exchange.id)%>
+            </button>
+          </div>
+        <% end %>
+        <div class="flex justify-center items-center">
+          <button class="mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline">
+            <%= link_to "Back to exchanges", exchange_path, class: "text-white font-bold no-underline"%>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>

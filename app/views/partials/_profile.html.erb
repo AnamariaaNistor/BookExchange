@@ -28,10 +28,10 @@
                         <a id="default-tab" href="#first" class="text-gray-600 no-underline hover:text-gray-900">Books</a>
                       </li>
                       <li class="px-4 font-semibold py-2">
-                        <a href="#second" class="text-gray-600 no-underline hover:text-gray-900">Donations</a>
+                        <a href="#second" class="text-gray-600 no-underline hover:text-gray-900">Donations available</a>
                       </li>
                       <li class="px-4 font-semibold py-2">
-                        <a href="#third" class="text-gray-600 no-underline hover:text-gray-900">Exchanges</a>
+                        <a href="#third" class="text-gray-600 no-underline hover:text-gray-900">Exchanges available</a>
                       </li>
                     </ul>
                   <div id="tab-contents">
@@ -40,7 +40,6 @@
                         <div class="h-1/2">
                           <div class="bg-white rounded-t-md ">
                             <div class="">
-                              <img class="w-md" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kZXxlbnwwfHwwfHw%3D&amp;auto=format&amp;" alt="">
                               <div class="p-2 relative">
                                 <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= book.title %></p>
                                 <p class="text-sm mx-2">By <%= book.author %></p>
@@ -58,15 +57,6 @@
                               <div class="p-2 relative">
                                 <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= donation.sended_book.title %></p>
                                 <p class="text-sm mx-2">By <%= donation.sended_book.author %></p>
-                                <p class="text-sm mb-2 mx-2">Donated to:</p>
-                                <% if donation.recieving_user.nil? %>
-                                  <p class="text-sm mb-2 mx-2">Not donated yet</p>
-                                <% else %>
-                                  <div class="flex items-center">
-                                    <img class="mx-2 rounded-full border-gray-100 shadow-sm w-12 h-12" src="https://randomuser.me/api/portraits/women/43.jpg" alt="user image" />
-                                    <%= link_to "#{donation.recieving_user.first_name} #{donation.recieving_user.last_name}", user_path(donation.recieving_user), class: "my-0 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
-                                  </div>
-                                <% end %>
                                 <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
                                   <%= link_to "Details", donation, class: "text-white font-bold no-underline"%>
                                 </button>
@@ -84,23 +74,6 @@
                               <div class="p-2 relative">
                                 <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= exchange.sended_book.title %></p>
                                 <p class="text-sm mx-2">By <%= exchange.sended_book.author %></p>
-                                <p class="text-sm mb-2 mx-2">Exchanged to:</p>
-                                <% if exchange.recieving_user.nil? %>
-                                  <p class="text-sm mb-2 mx-2">Not exchanged yet</p>
-                                <% else %>
-                                  <div class="flex items-center">
-                                    <img class="mx-2 rounded-full border-gray-100 shadow-sm w-12 h-12" src="https://randomuser.me/api/portraits/women/43.jpg" alt="user image" />
-                                    <%= link_to "#{exchange.recieving_user.first_name} #{exchange.recieving_user.last_name}", user_path(exchange.recieving_user), class: "my-0 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
-                                  </div>
-                                <% end %>
-                                <p class="text-sm mb-2 mt-2 mx-2">Exchanged book:</p>
-                                <% if exchange.recieved_book.nil? %>
-                                  <p class="text-sm mb-2 mx-2">Not exchanged yet</p>
-                                <% else %>
-                                  <div class="flex items-center">
-                                    <%= link_to "#{exchange.recieved_book.title} by #{exchange.recieved_book.author}", book_path(exchange.recieved_book), class: "my-0 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
-                                  </div>
-                                <% end %>
                                 <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
                                   <%= link_to "Details", exchange, class: "text-white font-bold no-underline"%>
                                 </button>

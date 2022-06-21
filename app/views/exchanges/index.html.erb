@@ -15,37 +15,82 @@
         <li class="px-4 font-semibold py-2">
           <a href="#second" class="text-gray-600 no-underline hover:text-gray-900">Others exchanges</a>
         </li>
+        <li class="px-4 font-semibold py-2">
+          <a href="#third" class="text-gray-600 no-underline hover:text-gray-900">Requests for exchanges</a>
+        </li>
       </ul>
 
       <!-- Tab Contents -->
       <div id="tab-contents">
-        <div id="first" class="p-4">
+        <div id="first" class="h-[90vh] px-4">
           <span class="mx-10 mt-6 text-4xl no-underline">My exchanges</span>
-          <div class="mx-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-8 bg-transparent max-h-[150%] drop-shadow-md">
-            <% if @my_exchanges.nil? %>
-              <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>
-            <% else %>
-              <% @my_exchanges.each do |exchange| %>
-              <div class="h-1/2 px-10">
-                <div class="bg-white rounded-t-md ">
-                  <div class="">
-                    <div class="p-2 relative">
-                      <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= exchange.sended_book.title %></p>
-                      <p class="text-sm mx-2">By <%= exchange.sended_book.author %></p>
-                      <p class="text-sm mb-2 mx-2">Owner:</p>
-                      <div class="flex items-center">
-                        <img class="mx-2 rounded-full border-gray-100 shadow-sm w-12 h-12" src="https://randomuser.me/api/portraits/women/43.jpg" alt="user image" />
-                          <%= link_to "#{exchange.sending_user.first_name} #{exchange.sending_user.last_name}", user_path(exchange.sending_user), class: "my-0 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
+          <button class="ml-20 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2">
+            <%= link_to "New exchange", new_exchange_url, class: "text-white font-bold no-underline" %>
+          </button>
+
+          <div class = "h-1/3 p-5">
+            <span class="mx-20 mt-6 text-4xl no-underline">Books exchanged</span>
+            <div class="h-3/4 mx-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 my-10 bg-transparent overflow-y-scroll drop-shadow-md">
+              <% if @sent_books_exchanges.nil? %>
+                <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>
+              <% else %>
+                <% @sent_books_exchanges.each do |exchange| %>
+                  <div class="h-1/2 px-10">
+                    <div class="bg-white rounded-t-md ">
+                      <div class="">
+                        <div class="p-2 my-10 relative">
+                          <% if exchange.process_status == 'waiting' %>
+                            <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">waiting</span>
+                          <% elsif exchange.process_status == 'in progress' %>
+                            <span class="bg-orange-100 text-orange-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">in progress</span>
+                          <% else %>
+                            <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">done</span>
+                          <% end %>
+
+                          <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= exchange.sended_book.title %></p>
+                          <p class="text-sm mx-2">By <%= exchange.sended_book.author %></p>
+                          <p class="text-sm mb-2 mx-2">Owner:</p>
+                          <div class="flex items-center">
+                            <%= link_to "#{exchange.sending_user.first_name} #{exchange.sending_user.last_name}", user_path(exchange.sending_user), class: "my-0 mx-2 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
+                          </div>
+                          <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
+                            <%= link_to "Details", exchange, class: "text-white font-bold no-underline"%>
+                          </button>
+                        </div>
                       </div>
-                      <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
-                        <%= link_to "Details", exchange, class: "text-white font-bold no-underline"%>
-                      </button>
                     </div>
                   </div>
-                </div>
-              </div>
-            <% end %>
-            <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <div class = "h-1/3 p-5 mt-6">
+            <span class="mx-20 mt-6 text-4xl no-underline">Books recieved</span>
+            <div class="h-3/4 mx-10 grid grid-cols-2 gap-12 md:grid-cols-3 lg:grid-cols-4 my-10 bg-transparent overflow-y-scroll drop-shadow-md">
+              <% if @recieved_books_exchanges.nil? %>
+                <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>
+              <% else %>
+                <% @recieved_books_exchanges.each do |exchange| %>
+                  <div class="h-1/2 px-10">
+                    <div class="bg-white rounded-t-md ">
+                      <div class="">
+                        <div class="p-2 my-10 relative">
+                          <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= exchange.sended_book.title %></p>
+                          <p class="text-sm mx-2">By <%= exchange.sended_book.author %></p>
+                          <p class="text-sm mb-2 mx-2">Owner:</p>
+                          <div class="flex items-center">
+                            <%= link_to "#{exchange.sending_user.first_name} #{exchange.sending_user.last_name}", user_path(exchange.sending_user), class: "my-0 mx-2 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
+                          </div>
+                          <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
+                            <%= link_to "Details", exchange, class: "text-white font-bold no-underline"%>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div id="second" class="hidden p-4">
@@ -63,10 +108,9 @@
                       <p class="text-sm mx-2">By <%= exchange.sended_book.author %></p>
                       <p class="text-sm mb-2 mx-2">Owner:</p>
                       <div class="flex items-center">
-                        <img class="mx-2 rounded-full border-gray-100 shadow-sm w-12 h-12" src="https://randomuser.me/api/portraits/women/43.jpg" alt="user image" />
-                        <%= link_to "#{exchange.sending_user.first_name} #{exchange.sending_user.last_name}", user_path(exchange.sending_user), class: "my-0 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
+                        <%= link_to "#{exchange.sending_user.first_name} #{exchange.sending_user.last_name}", user_path(exchange.sending_user), class: "my-0 mx-2 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
                       </div>
-                      <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
+                      <button class="asolute bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
                         <%= link_to "Details", exchange, class: "text-white font-bold no-underline"%>
                       </button>
                     </div>
@@ -75,6 +119,74 @@
               </div>
             <% end %>
             <% end %>
+          </div>
+        </div>
+        <div id="third" class="h-[90vh] hidden p-4">
+          <span class="mx-10 mt-6 text-4xl no-underline">Requests for exchanges</span>
+          <div class = "h-1/3 p-5">
+            <span class="mx-20 mt-6 text-4xl no-underline">Requests for your exchanges</span>
+            <div class="h-3/4 mx-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 my-10 bg-transparent overflow-y-scroll drop-shadow-md">
+              <% if @my_exchanges_requests.blank? %>
+                <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>
+              <% else %>
+                <% @my_exchanges_requests.each do |request| %>
+                  <div class="h-1/2 px-10">
+                    <div class="bg-white rounded-t-md ">
+                      <div class="">
+                        <div class="p-2 my-10 relative">
+                          <p class="text-lg mt-2 mb-0 mx-2 font-bold">Request for:</p>
+                          <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= request.exchange_requested.sended_book.title %></p>
+                          <p class="text-lg mt-2 mb-0 mx-2 font-bold">Book offered for exchange:</p>
+                          <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= request.request_book.title %></p>
+                          <p class="text-sm mx-2">By <%= request.exchange_requested.sended_book.author %></p>
+                          <p class="text-sm mb-2 mx-2">Owner:</p>
+                          <div class="flex items-center">
+                            <%= link_to "#{request.request_user.first_name} #{request.request_user.last_name}", user_path(request.request_user), class: "my-0 mx-2 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <div class = "h-1/3 p-5 mt-6">
+            <span class="mx-20 mt-6 text-4xl no-underline">Your requests</span>
+            <div class="h-3/4 mx-10 grid grid-cols-2 gap-12 md:grid-cols-3 lg:grid-cols-4 my-10 bg-transparent overflow-y-scroll drop-shadow-md">
+              <% if @my_requests.blank? %>
+                <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>
+              <% else %>
+                <% @my_requests.each do |request| %>
+                  <div class="h-1/2 px-10">
+                    <div class="bg-white rounded-t-md ">
+                      <div class="">
+                        <div class="p-2 my-10 relative">
+                          <% if request.status == 'accepted' %>
+                            <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">accepted</span>
+                          <% elsif request.status == 'decline' %>
+                            <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">declined</span>
+                        <% else %>
+                            <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">waiting</span>
+                        <% end %>
+                          <p class="text-md mt-2 mb-0 mx-2 font-semibold">Request for:</p>
+                          <p class="text-md mt-2 mb-0 mx-2 "><%= request.exchange_requested.sended_book.title %></p>
+                          <p class="text-md mt-2 mb-0 mx-2 font-semibold">Book offered for exchange:</p>
+                          <p class="text-md mt-2 mb-0 mx-2 "><%= request.request_book.title %></p>
+                          <p class="text-sm mx-2">By <%= request.exchange_requested.sended_book.author %></p>
+                          <p class="text-md mt-2 mb-0 mx-2 font-semibold">Details of the request:</p>
+                          <p class="text-md mx-2 "><%= request.details %></p>
+                          <p class="text-sm mb-2 mx-2 font-semibold">Owner of the exchange:</p>
+                          <div class="flex items-center">
+                            <%= link_to "#{request.exchange_requested.sending_user.first_name} #{request.exchange_requested.sending_user.last_name}", user_path(request.exchange_requested.sending_user), class: "my-0 mx-2 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

@@ -4,8 +4,15 @@ class ExchangesController < ApplicationController
 
   # GET /exchanges or /exchanges.json
   def index
-    @my_exchanges = Exchange.where(sending_user: current_user)
-    @others_exchanges = Exchange.where.not(sending_user: current_user)
+    @sent_books_exchanges = Exchange.where(sending_user: current_user).includes([:sended_book, :sending_user])
+    @recieved_books_exchanges = Exchange.where(recieving_user: current_user).includes([:sended_book, :sending_user])
+
+    @others_exchanges = Exchange.availible.where.not(sending_user: current_user).includes([:sended_book, :sending_user])
+
+    @my_exchanges_requests = Request.where(exchange_requested_id: Exchange.where(sending_user_id: current_user.id).ids,
+                                           status: 'wating').includes([:exchange_requested])
+
+    @my_requests = Request.where(request_user_id: current_user.id).includes([:request_book, exchange_requested: [:sended_book, :sending_user]])
   end
 
   # GET /exchanges/1 or /exchanges/1.json

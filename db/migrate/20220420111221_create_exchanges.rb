@@ -1,8 +1,6 @@
 class CreateExchanges < ActiveRecord::Migration[7.0]
   def change
     create_table :exchanges do |t|
-    t.integer :sending_status
-    t.integer :recieving_status
     t.integer :process_status
     t.integer :type_of_exchange
     t.string :details

@@ -17,37 +17,74 @@
 
       <!-- Tab Contents -->
       <div id="tab-contents">
-        <div id="first" class="p-4">
+        <div id="first" class="h-[90vh] p-4">
           <span class="mx-10 mt-6 text-4xl no-underline">My donations</span>
-          <div class="mx-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-8 bg-transparent max-h-[150%] drop-shadow-md">
-            <% if @my_donations.nil? %>
-              <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>
-            <% else %>
-              <% @my_donations.each do |donation| %>
-                <div class="h-1/2 px-10">
-                  <div class="bg-white rounded-t-md ">
-                    <div class="">
-                      <div class="p-2 relative">
-                        <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= donation.sended_book.title %></p>
-                        <p class="text-sm mx-2">By <%= donation.sended_book.author %></p>
-                        <p class="text-sm mb-2 mx-2">Owner:</p>
-                        <div class="flex items-center">
-                          <img class="mx-2 rounded-full border-gray-100 shadow-sm w-12 h-12" src="https://randomuser.me/api/portraits/women/43.jpg" alt="user image" />
-                          <%= link_to "#{donation.sending_user.first_name} #{donation.sending_user.last_name}", user_path(donation.sending_user), class: "my-0 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
+          <button class="ml-20 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2">
+            <%= link_to "New donation", new_donation_url, class: "text-white font-bold no-underline" %>
+          </button>
+
+          <div class = "h-1/3 p-5">
+            <span class="mx-20 mt-6 text-4xl no-underline">Books donated</span>
+            <div class="h-3/4 mx-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 my-10 bg-transparent overflow-y-scroll drop-shadow-md">
+              <% if @sent_books_donations.nil? %>
+                <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>
+              <% else %>
+                <% @sent_books_donations.each do |donation| %>
+                  <div class="h-1/2 px-10">
+                    <div class="bg-white rounded-t-md ">
+                      <div class="">
+                        <div class="p-2 my-10 relative">
+                          <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= donation.sended_book.title %></p>
+                          <p class="text-sm mx-2">By <%= donation.sended_book.author %></p>
+                          <p class="text-sm mb-2 mx-2">Owner:</p>
+                          <div class="flex items-center">
+                            <%= link_to "#{donation.sending_user.first_name} #{donation.sending_user.last_name}", user_path(donation.sending_user), class: "my-0 mx-2 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
+                          </div>
+                          <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
+                            <%= link_to "Details", donation, class: "text-white font-bold no-underline"%>
+                          </button>
                         </div>
-                        <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
-                          <%= link_to "Details", donation, class: "text-white font-bold no-underline"%>
-                        </button>
                       </div>
                     </div>
                   </div>
-                </div>
+                <% end %>
               <% end %>
-            <% end %>
+            </div>
+          </div>
+          <div class = "h-1/3 p-5 mt-6">
+            <span class="mx-20 mt-6 text-4xl no-underline">Books recieved</span>
+            <div class="h-3/4 mx-10 grid grid-cols-2 gap-12 md:grid-cols-3 lg:grid-cols-4 my-10 bg-transparent overflow-y-scroll drop-shadow-md">
+              <% if @recieved_books_donations.nil? %>
+                <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>
+              <% else %>
+                <% @recieved_books_donations.each do |donation| %>
+                  <div class="h-1/2 px-10">
+                    <div class="bg-white rounded-t-md ">
+                      <div class="">
+                        <div class="p-2 my-10 relative">
+                          <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= donation.sended_book.title %></p>
+                          <p class="text-sm mx-2">By <%= donation.sended_book.author %></p>
+                          <p class="text-sm mb-2 mx-2">Owner:</p>
+                          <div class="flex items-center">
+                            <%= link_to "#{donation.sending_user.first_name} #{donation.sending_user.last_name}", user_path(donation.sending_user), class: "my-0 mx-2 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
+                          </div>
+                          <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
+                            <%= link_to "Details", donation, class: "text-white font-bold no-underline"%>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div id="second" class="hidden p-4">
-          <span class="mx-10 mt-6 text-4xl no-underline">Others exchanges</span>
+          <span class="mx-10 mt-6 text-4xl no-underline">Others donations</span>
+          <button class="ml-20 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2">
+            <%= link_to "New donation", new_donation_url, class: "text-white font-bold no-underline" %>
+          </button>
           <div class="mx-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-8 bg-transparent max-h-[150%] drop-shadow-md">
             <% if @others_donations.nil? %>
               <span class="mx-10 mt-6 text-4xl no-underline justify-center">Nothing here</span>
@@ -61,8 +98,7 @@
                       <p class="text-sm mx-2">By <%= donation.sended_book.author %></p>
                       <p class="text-sm mb-2 mx-2">Owner:</p>
                       <div class="flex items-center">
-                        <img class="mx-2 rounded-full border-gray-100 shadow-sm w-12 h-12" src="https://randomuser.me/api/portraits/women/43.jpg" alt="user image" />
-                        <%= link_to "#{donation.sending_user.first_name} #{donation.sending_user.last_name}", user_path(donation.sending_user), class: "my-0 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
+                        <%= link_to "#{donation.sending_user.first_name} #{donation.sending_user.last_name}", user_path(donation.sending_user), class: "my-0 mx-2 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
                       </div>
                       <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
                         <%= link_to "Details", donation, class: "text-white font-bold no-underline"%>

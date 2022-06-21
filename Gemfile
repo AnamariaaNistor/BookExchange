@@ -39,6 +39,7 @@ end
 
 group :development do
   gem 'web-console'
+  gem 'bullet'
 end
 
 group :test do
@@ -47,8 +48,8 @@ group :test do
   gem 'webdrivers'
 end
 
-gem "tailwindcss-rails", "~> 2.0"
+gem 'tailwindcss-rails', '~> 2.0'
 
-gem "cssbundling-rails", "~> 1.1"
+gem 'cssbundling-rails', '~> 1.1'
 
-gem "hotwire-rails", "~> 0.1.3"
+gem 'hotwire-rails', '~> 0.1.3'

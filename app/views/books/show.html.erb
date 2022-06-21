@@ -1,13 +1,32 @@
-<p style="color: green"><%= notice %></p>
-
-<%= @book.title %> <br>
-<%= @book.author %><br>
-<%= @book.category.name %><br>
-<%= @book.user.email %><br>
-
-<div>
-  <%= link_to "Edit this book", edit_book_path(@book) %> |
-  <%= link_to "Back to books", books_path %>
-
-  <%= button_to "Destroy this book", @book, method: :delete %>
+<div class="min-h-screen flex flex-row bg-gray-100">
+  <%= render('partials/navbar') %>
+  <main class="min-h-screen w-full bg-[#F4ECEC]">
+    <div class="flex h-screen justify-center items-center">
+          <div class="text-left">
+            <p class="text-4xl mb-0 mx-2 font-semibold">Book title:</p>
+            <p class="text-3xl mb-0 mx-2"><%= @book.title %></p>
+            <p class="text-4xl mx-2 font-semibold">Book author:</p>
+            <p class="text-3xl mx-2 "><%= @book.author %></p>
+            <p class="text-4xl mx-2 font-semibold">Category:</p>
+            <p class="text-3xl mx-2"><%= @book.category.name %></p>
+            <p class="text-4xl mx-2 font-semibold">Owner:</p>
+            <p class="text-3xl mx-2"><%= @book.user.email %></p>
+            <% if @book.user_id == current_user.id %>
+              <div class="grid grid-cols-2">
+              <button class="mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline">
+                <%= link_to "Edit this book", edit_book_path(@book), class: "text-white font-bold no-underline"%>
+              </button>
+                <button class="mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline">
+                  <%= link_to "Delete this book", @book, data: { method: :delete }%>
+                </button>
+              </div>
+            <% end %>
+            <div class="flex justify-center items-center">
+              <button class="mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline">
+                <%= link_to "Back to books", books_path, class: "text-white font-bold no-underline"%>
+              </button>
+            </div>
+          </div>
+    </div>
+  </main>
 </div>

@@ -4,17 +4,7 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.all
-  end
-
-  # GET /books_owned
-  def owned
     @books = Book.where(user_id: current_user.id)
-  end
-
-  # GET /users_books/n
-  def users_books
-    @books = Book.where(user_id: params[:id])
   end
 
   # GET /books/1 or /books/1.json
