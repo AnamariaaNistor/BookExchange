@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_request, only: %i[show edit update destroy]
+  before_action :set_request, only: %i[show edit update destroy accept_request decline_request]
 
   # GET /requests or /requests.json
   def index
@@ -38,25 +38,26 @@ class RequestsController < ApplicationController
   end
 
   def accept_request
-    @request.update(status: 1)
-    Request.where(exchange_requested_id: @request.exchange_requested.id).each do |request|
-      request.update(status: 2)
+    @request.update!(status: 1)
+    @request.exchange_requested.update!(recieving_user: @request.request_user, recieved_book: @request.request_book)
+    Request.where(exchange_requested_id: @request.exchange_requested.id).excluding(@request).each do |request|
+      request.update!(status: 2)
     end
     Exchange.where(id: @request.exchange_requested.id).update(process_status: 1)
 
     respond_to do |format|
       format.html do
-        redirect_to exchanges_url(@request.exchange_requested), notice: 'Request was successfully been accepted.'
+        redirect_to exchange_url(@request.exchange_requested), notice: 'Request was successfully been accepted.'
       end
       format.json { render :show, status: :created, location: @request.exchange_requested }
     end
   end
 
   def decline_request
-    @request.update(status: 2)
+    @request.update!(status: 2)
 
     respond_to do |format|
-      format.html { redirect_to exchanges_url(exchange), notice: 'Request was successfully been accepted.' }
+      format.html { redirect_to exchange_url(@request.exchange_requested), notice: 'Request was successfully been accepted.' }
       format.json { render :show, status: :created, location: @request.exchange_requested }
     end
   end

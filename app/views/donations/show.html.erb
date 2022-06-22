@@ -1,15 +1,14 @@
 <div class="min-h-screen flex flex-row bg-gray-100">
   <%= render('partials/navbar') %>
   <main class="min-h-screen w-full bg-[#F4ECEC]">
-    <div class="flex h-screen justify-center items-center">
-      <div class="text-left">
+    <div class="flex h-screen justify-center">
+      <div class="h-1/2 my-10 text-left">
         <div class=" my-10 text-center">
           <p class="text-4xl mx-2 font-semibold">Process status:</p>
           <p class="text-3xl mx-2"><%= @donation.process_status.capitalize %></p>
-          <% if @donation.sending_user.id == current_user.id && @donation.process_status == 0 %>
-
+          <% if @donation.sending_user.id == current_user.id && @donation.in_progress? %>
+            <%= button_to 'Mark as done', donation_mark_as_done_path(@donation), method: :patch, class: "mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline" %>
           <% end %>
-          <!--          TODO: mark as in progress/done ?? -->
         </div>
         <p class="text-4xl mb-0 mx-2 font-semibold">Donating book:</p>
         <p class="text-3xl mb-0 mx-2"><%= @donation.sended_book.title %></p>
@@ -23,10 +22,12 @@
           <div class="grid grid-cols-2">
             <button class="mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline">
               <%= link_to "Edit this donation", edit_donation_path(@donation), class: "text-white font-bold no-underline"%>
+              <%= button_to 'Delete this donation', @donation, method: :delete, class: "mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline" %>
             </button>
-            <button class="mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline">
-              <%= link_to "Delete this donation", @donation, data: { method: :delete }%>
-            </button>
+          </div>
+        <% elsif @donation.recieving_user_id.nil? %>
+          <div class="flex justify-center items-center">
+              <%= button_to 'Apply for donation', donation_mark_in_progress_path(@donation), method: :patch, class: "mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline" %>
           </div>
         <% end %>
         <div class="flex justify-center items-center">

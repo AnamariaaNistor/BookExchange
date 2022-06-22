@@ -19,7 +19,7 @@
       </label>
       <div class="relative">
 
-        <%= form.select(:request_book_id, Book.availible_for_exchange.where(user_id: current_user.id).pluck(:title, :id),{:id => 'grid-category', :prompt => 'Select book'}, {:class => "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"} )%>
+        <%= form.select(:request_book_id, Book.availible_for_request.where(user_id: current_user.id).pluck(:title, :id),{:id => 'grid-category', :prompt => 'Select book'}, {:class => "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"} )%>
 
       </div>
     </div>
@@ -27,7 +27,7 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
         Details of the book
       </label>
-      <%= form.text_field :details, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 mt-3 leading-tight focus:outline-none focus:bg-white", id: "grid-title", type: "text",placeholder: "Details"%>
+      <%= form.text_field :details, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 mt-3 leading-tight focus:outline-none focus:bg-white", id: "grid-title", type: "text",placeholder: "Details"%>
     </div>
 
       <%= form.hidden_field :exchange_requested_id, value: exchange_id %>

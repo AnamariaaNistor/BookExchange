@@ -6,6 +6,9 @@
   <main class="min-h-screen w-full bg-[#F4ECEC]">
           <div class="flex items-center mt-10">
             <div class="ml-20 text-4xl">Books</div>
+            <button class="ml-20 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2">
+              <%= link_to "New book", new_book_url, class: "text-white font-bold no-underline" %>
+            </button>
           </div>
           <div class="mx-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-8 bg-transparent max-h-[150%] drop-shadow-md">
             <% if @books.nil? %>
