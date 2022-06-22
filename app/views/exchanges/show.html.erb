@@ -33,7 +33,7 @@
                 <p class="text-4xl mx-2 font-semibold">Exchanged book owner:</p>
                 <p class="text-3xl mx-2"><%= @exchange.recieving_user.email %></p>
               </div>
-            <% else %>
+            <% elsif @exchange.sending_user_id == current_user.id %>
 
             <div class="overflow-y-scroll">
               <%@exchange_requests.each do |request| %>
