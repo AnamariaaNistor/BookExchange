@@ -34,6 +34,13 @@
                     <div class="bg-white rounded-t-md ">
                       <div class="">
                         <div class="p-2 my-10 relative">
+                          <% if donation.process_status == 'waiting' %>
+                            <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">waiting</span>
+                          <% elsif donation.process_status == 'in progress' %>
+                            <span class="bg-orange-100 text-orange-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">in progress</span>
+                          <% else %>
+                            <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">done</span>
+                          <% end %>
                           <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= donation.sended_book.title %></p>
                           <p class="text-sm mx-2">By <%= donation.sended_book.author %></p>
                           <p class="text-sm mb-2 mx-2">Owner:</p>
@@ -62,6 +69,13 @@
                     <div class="bg-white rounded-t-md ">
                       <div class="">
                         <div class="p-2 my-10 relative">
+                          <% if donation.process_status == 'waiting' %>
+                            <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">waiting</span>
+                          <% elsif donation.process_status == 'in progress' %>
+                            <span class="bg-orange-100 text-orange-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">in progress</span>
+                          <% else %>
+                            <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">done</span>
+                          <% end %>
                           <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= donation.sended_book.title %></p>
                           <p class="text-sm mx-2">By <%= donation.sended_book.author %></p>
                           <p class="text-sm mb-2 mx-2">Owner:</p>
@@ -94,6 +108,13 @@
                 <div class="bg-white rounded-t-md ">
                   <div class="">
                     <div class="p-2 relative">
+                      <% if donation.process_status == 'waiting' %>
+                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">waiting</span>
+                      <% elsif donation.process_status == 'in progress' %>
+                        <span class="bg-orange-100 text-orange-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">in progress</span>
+                      <% else %>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">done</span>
+                      <% end %>
                       <p class="text-lg mt-2 mb-0 mx-2 font-semibold"><%= donation.sended_book.title %></p>
                       <p class="text-sm mx-2">By <%= donation.sended_book.author %></p>
                       <p class="text-sm mb-2 mx-2">Owner:</p>

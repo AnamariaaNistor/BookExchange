@@ -1,6 +1,6 @@
 class ExchangesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_exchange, only: %i[show edit update destroy]
+  before_action :set_exchange, only: %i[show edit update destroy mark_as_done]
 
   # GET /exchanges or /exchanges.json
   def index
@@ -16,7 +16,9 @@ class ExchangesController < ApplicationController
   end
 
   # GET /exchanges/1 or /exchanges/1.json
-  def show; end
+  def show
+    @exchange_requests = Request.where(exchange_requested_id: params[:id]).includes([:request_book, :request_user])
+  end
 
   # GET /exchanges/new
   def new
@@ -28,12 +30,24 @@ class ExchangesController < ApplicationController
 
   # POST /exchanges or /exchanges.json
   def create
-    @exchange = Exchange.new(exchange_params)
+    @exchange = Exchange.new(exchange_params.merge(sending_user_id: current_user.id, process_status: 'waiting'))
 
     respond_to do |format|
       if @exchange.save
         format.html { redirect_to exchange_url(@exchange), notice: 'Exchange was successfully created.' }
         format.json { render :show, status: :created, location: @exchange }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @exchange.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def mark_as_done
+    respond_to do |format|
+      if @exchange.done!
+        format.html { redirect_to exchange_url(@exchange), notice: 'Exchange was successfully marked as done.' }
+        format.json { render :show, status: :update, location: @exchange }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @exchange.errors, status: :unprocessable_entity }

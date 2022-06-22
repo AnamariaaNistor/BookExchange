@@ -22,5 +22,6 @@ class Book < ApplicationRecord
 
   scope :not_deleted, -> { where(deleted: false) }
 
-  scope :availible_for_exchange, -> { where.not(id: Request.where(status: 'waiting').pluck(:request_book_id)) }
+  scope :availible_for_request, -> { where.not(id: Request.where(status: 'waiting').pluck(:request_book_id)) }
+  scope :availible_for_exchange, -> { where.not(id: Exchange.where(process_status: 'waiting').pluck(:sended_book_id)) }
 end

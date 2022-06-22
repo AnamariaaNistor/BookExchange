@@ -5,4 +5,6 @@ class Donation < ApplicationRecord
   belongs_to :sended_book, class_name: 'Book', foreign_key: 'sended_book_id'
 
   enum process_status: { 'waiting' => 0, 'in progress' => 1, 'done' => 2 }
+
+  scope :availible, -> { where(process_status: 0) }
 end

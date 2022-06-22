@@ -1,0 +1,15 @@
+
+<div class="min-h-screen flex flex-row bg-gray-100">
+  <%= render('partials/navbar') %>
+  <main class="min-h-screen w-full bg-[#F4ECEC]">
+    <div class="flex justify-center mt-10">
+      <div class="text-4xl">New exchange</div>
+    </div>
+
+    <%= render "form", exchange: @exchange %>
+
+    <button class="ml-20 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2">
+      <%= link_to "Back to exchanges", exchanges_path, class: "text-white font-bold no-underline" %>
+    </button>
+  </main>
+</div>

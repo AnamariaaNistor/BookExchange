@@ -33,10 +33,11 @@
         <span class="text-sm font-medium no-underline">Profile</span>
       </a>
     </li>
-      <%= link_to destroy_user_session_url, data: { method: :delete }, class: "flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800 no-underline" do %>
-        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 no-underline"><i class="bx bx-log-out"></i></span>
-        <span class="text-sm font-medium no-underline">Log out</span>
-      <% end %>
+    <div class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800 no-underline">
+      <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 no-underline"><i class="bx bx-log-out"></i></span>
+      <%= button_to 'Logout', destroy_user_session_url, method: :delete, class: "text-sm font-medium no-underline" %>
+    </div>
+
     </li>
   </ul>
 </div>
