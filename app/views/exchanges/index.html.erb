@@ -151,6 +151,9 @@
                           <div class="flex items-center">
                             <%= link_to "#{request.request_user.first_name} #{request.request_user.last_name}", user_path(request.request_user), class: "my-0 mx-2 font-semibold text-gray-600 no-underline hover:text-gray-900"%>
                           </div>
+                          <button class="bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6">
+                            <%= link_to "Details", request.exchange_requested, class: "text-white font-bold no-underline"%>
+                          </button>
                         </div>
                       </div>
                     </div>

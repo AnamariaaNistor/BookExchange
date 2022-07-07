@@ -10,7 +10,7 @@ class ExchangesController < ApplicationController
     @others_exchanges = Exchange.availible.where.not(sending_user: current_user).includes([:sended_book, :sending_user])
 
     @my_exchanges_requests = Request.where(exchange_requested_id: Exchange.where(sending_user_id: current_user.id).ids,
-                                           status: 'wating').includes([:exchange_requested])
+                                           status: 0).includes([:exchange_requested, :request_book, :request_user])
 
     @my_requests = Request.where(request_user_id: current_user.id).includes([:request_book, exchange_requested: [:sended_book, :sending_user]])
   end

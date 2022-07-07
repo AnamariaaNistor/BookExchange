@@ -2,7 +2,7 @@ class Book < ApplicationRecord
   belongs_to :user
   belongs_to :category
 
-  has_many :requests, foreign_key: 'request_book_id'
+  has_many :requests, foreign_key: 'request_book_id', dependent: :destroy
 
   has_many :sending_exchanges, class_name: 'Exchange', foreign_key: 'sended_book_id'
   has_many :sending_users, class_name: 'Exchange', foreign_key: 'sending_user_id'
