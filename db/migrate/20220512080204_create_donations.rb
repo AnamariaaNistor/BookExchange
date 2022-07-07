@@ -3,9 +3,10 @@ class CreateDonations < ActiveRecord::Migration[7.0]
     create_table :donations do |t|
       t.string :details
       t.integer :process_status
+      t.boolean :deleted, default: false
 
       t.references :sending_user, null: false
-      t.references :recieving_user, null: true
+      t.references :receiving_user, null: true
 
       t.references :sended_book, null: false
 
@@ -13,7 +14,7 @@ class CreateDonations < ActiveRecord::Migration[7.0]
     end
 
     add_foreign_key :donations, :users, column: :sending_user_id
-    add_foreign_key :donations, :users, column: :recieving_user_id
+    add_foreign_key :donations, :users, column: :receiving_user_id
 
     add_foreign_key :donations, :books, column: :sended_book_id
   end

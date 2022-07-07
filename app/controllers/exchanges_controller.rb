@@ -5,9 +5,9 @@ class ExchangesController < ApplicationController
   # GET /exchanges or /exchanges.json
   def index
     @sent_books_exchanges = Exchange.where(sending_user: current_user).includes([:sended_book, :sending_user])
-    @recieved_books_exchanges = Exchange.where(recieving_user: current_user).includes([:sended_book, :sending_user])
+    @received_books_exchanges = Exchange.where(receiving_user: current_user).includes([:sended_book, :sending_user])
 
-    @others_exchanges = Exchange.availible.where.not(sending_user: current_user).includes([:sended_book, :sending_user])
+    @others_exchanges = Exchange.available.where.not(sending_user: current_user).includes([:sended_book, :sending_user])
 
     @my_exchanges_requests = Request.where(exchange_requested_id: Exchange.where(sending_user_id: current_user.id).ids,
                                            status: 0).includes([:exchange_requested, :request_book, :request_user])
@@ -70,7 +70,8 @@ class ExchangesController < ApplicationController
 
   # DELETE /exchanges/1 or /exchanges/1.json
   def destroy
-    @exchange.destroy
+    @exchange.update(deleted: true)
+    Request.where(exchange_requested_id: @exchange.id).update(deleted: true)
 
     respond_to do |format|
       format.html { redirect_to exchanges_url, notice: 'Exchange was successfully destroyed.' }

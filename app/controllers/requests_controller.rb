@@ -39,7 +39,7 @@ class RequestsController < ApplicationController
 
   def accept_request
     @request.update!(status: 1)
-    @request.exchange_requested.update!(recieving_user: @request.request_user, recieved_book: @request.request_book)
+    @request.exchange_requested.update!(receiving_user: @request.request_user, received_book: @request.request_book)
     Request.where(exchange_requested_id: @request.exchange_requested.id).excluding(@request).each do |request|
       request.update!(status: 2)
     end

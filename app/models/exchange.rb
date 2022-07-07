@@ -1,9 +1,9 @@
 class Exchange < ApplicationRecord
   belongs_to :sending_user, class_name: 'User', foreign_key: 'sending_user_id'
-  belongs_to :recieving_user, class_name: 'User', foreign_key: 'recieving_user_id', optional: true
+  belongs_to :receiving_user, class_name: 'User', foreign_key: 'receiving_user_id', optional: true
 
-  belongs_to :sended_book, class_name: 'Book', foreign_key: 'sended_book_id'
-  belongs_to :recieved_book, class_name: 'Book', foreign_key: 'recieved_book_id', required: false
+  belongs_to :sended_book, class_name: 'Book', foreign_key: 'sended_book_id', dependent: :destroy
+  belongs_to :received_book, class_name: 'Book', foreign_key: 'received_book_id', required: false, dependent: :destroy
 
   has_many :requests, foreign_key: 'exchange_requested_id'
 
@@ -16,5 +16,5 @@ class Exchange < ApplicationRecord
 
   default_scope { where(deleted: false) }
 
-  scope :availible, -> { where(process_status: 0) }
+  scope :available, -> { where(process_status: 0) }
 end

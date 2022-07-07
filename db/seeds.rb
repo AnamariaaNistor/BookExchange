@@ -26,7 +26,7 @@ unless Exchange.any?
 
   User.all.each do |user|
     15.times do
-      FactoryBot.create(:exchange, sending_user: user, recieving_user: nil, process_status: 0)
+      FactoryBot.create(:exchange, sending_user: user, receiving_user: nil, process_status: 0)
     end
   end
 end
@@ -40,7 +40,7 @@ unless Donation.any?
 
   User.all.each do |user|
     15.times do
-      FactoryBot.create(:donation, sending_user: user, recieving_user: nil, process_status: 0)
+      FactoryBot.create(:donation, sending_user: user, receiving_user: nil, process_status: 0)
     end
   end
 end

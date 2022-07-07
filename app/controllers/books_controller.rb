@@ -50,7 +50,9 @@ class BooksController < ApplicationController
 
   # DELETE /books/1 or /books/1.json
   def destroy
-    @book.destroy
+    @book.update(deleted: true)
+    Exchange.where(sended_book_id: @book.id).or(Exchange.where(received_book_id: @book.id)).update!(deleted: true)
+    Donation.where(sended_book_id: @book.id).update!(deleted: true)
 
     respond_to do |format|
       format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }

@@ -5,12 +5,12 @@ RSpec.describe 'donations/index', type: :view do
     assign(:donations, [
              Donation.create!(
                sending_status: 2,
-               recieving_status: 3,
+               receiving_status: 3,
                process_status: 4
              ),
              Donation.create!(
                sending_status: 2,
-               recieving_status: 3,
+               receiving_status: 3,
                process_status: 4
              )
            ])

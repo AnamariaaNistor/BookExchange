@@ -5,13 +5,13 @@ class DonationsController < ApplicationController
   # GET /donations or /donations.json
   def index
     @sent_books_donations = Donation.where(sending_user: current_user).includes([:sended_book, :sending_user])
-    @recieved_books_donations = Donation.where(recieving_user: current_user).includes([:sended_book, :sending_user])
-    @others_donations = Donation.availible.where.not(sending_user: current_user).includes([:sended_book, :sending_user])
+    @received_books_donations = Donation.where(receiving_user: current_user).includes([:sended_book, :sending_user])
+    @others_donations = Donation.available.where.not(sending_user: current_user).includes([:sended_book, :sending_user])
   end
 
   def mark_in_progress
     respond_to do |format|
-      if @donation.update!(recieving_user_id: current_user.id, process_status: 'in progress')
+      if @donation.update!(receiving_user_id: current_user.id, process_status: 'in progress')
         format.html { redirect_to donation_url(@donation), notice: 'Donation was successfully marked in progress.' }
         format.json { render :show, status: :update, location: @donation }
       else
