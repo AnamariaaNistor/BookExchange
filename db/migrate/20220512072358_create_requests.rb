@@ -3,6 +3,7 @@ class CreateRequests < ActiveRecord::Migration[7.0]
     create_table :requests do |t|
       t.integer :status
       t.string :details
+      t.boolean :deleted, default: false
 
       t.references :request_user, null: false
       t.references :request_book, null: false

@@ -65,6 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_080204) do
   create_table "requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "status"
     t.string "details"
+    t.boolean "deleted", default: false
     t.bigint "request_user_id", null: false
     t.bigint "request_book_id", null: false
     t.bigint "exchange_requested_id", null: false

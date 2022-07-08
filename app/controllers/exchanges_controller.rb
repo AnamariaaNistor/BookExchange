@@ -4,6 +4,7 @@ class ExchangesController < ApplicationController
 
   # GET /exchanges or /exchanges.json
   def index
+
     @sent_books_exchanges = Exchange.where(sending_user: current_user).includes([:sended_book, :sending_user])
     @received_books_exchanges = Exchange.where(receiving_user: current_user).includes([:sended_book, :sending_user])
 

@@ -54,12 +54,14 @@
                         <p class="text=sm mt-2 mb-0 mx-2"><%= request.request_book.title %>, by <%= request.request_book.author %></p>
                         <p class="text=sm mt-2 mb-0 mx-2 font-semibold">Details:</p>
                         <p class="text=sm mt-2 mb-0 mx-2"><%= request.details %></p>
-                        <div class="">
-                          <%= button_to 'Decline', decline_request_path(request), method: :patch, class: "absolute text-white bg-red-400 hover:bg-red-500 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6" %>
-                        </div>
-                        <div class="">
-                          <%= button_to 'Accept', accept_request_path(request), method: :patch, class: "absolute text-white bg-green-400 hover:bg-green-500 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-32" %>
-                        </div>
+                        <% if request.status == 'waiting' %>
+                          <div class="">
+                            <%= button_to 'Decline', decline_request_path(request), method: :patch, class: "absolute text-white bg-red-400 hover:bg-red-500 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-6" %>
+                          </div>
+                          <div class="">
+                            <%= button_to 'Accept', accept_request_path(request), method: :patch, class: "absolute text-white bg-green-400 hover:bg-green-500 py-2 px-4 rounded-full absolute -top-6 p-0.5 border-2 right-32" %>
+                          </div>
+                        <% end %>
                       </div>
                     </div>
                   </div>
@@ -68,7 +70,7 @@
             <% end %>
         </div>
 
-        <% if @exchange.sending_user.id == current_user.id %>
+        <% if @exchange.sending_user.id == current_user.id && @exchange.process_status != 'done'%>
           <div class="grid grid-cols-2">
             <button class="mx-2 mt-4 bg-violet-500 hover:bg-violet-700 py-2 px-4 rounded-full p-0.5 border-2 text-white font-bold no-underline">
               <%= link_to "Edit this exchange", edit_exchange_path(@exchange), class: "text-white font-bold no-underline"%>

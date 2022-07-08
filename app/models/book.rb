@@ -10,10 +10,10 @@ class Book < ApplicationRecord
   has_many :receiving_exchanges, class_name: 'Exchange', foreign_key: 'received_book_id', dependent: :destroy
   has_many :receiving_users, class_name: 'Exchange', foreign_key: 'receiving_user_id'
 
-  has_many :donations
+  has_many :donations, dependent: :destroy
   has_many :sending_users, class_name: 'Donation', foreign_key: 'sending_user_id'
 
-  has_many :donations
+  has_many :donations, dependent: :destroy
   has_many :receiving_users, class_name: 'Donation', foreign_key: 'receiving_user_id'
 
   validates :title, presence: true

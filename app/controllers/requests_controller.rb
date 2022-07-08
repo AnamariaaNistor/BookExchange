@@ -57,7 +57,7 @@ class RequestsController < ApplicationController
     @request.update!(status: 2)
 
     respond_to do |format|
-      format.html { redirect_to exchange_url(@request.exchange_requested), notice: 'Request was successfully been accepted.' }
+      format.html { redirect_to exchange_url(@request.exchange_requested), notice: 'Request was successfully been declined.' }
       format.json { render :show, status: :created, location: @request.exchange_requested }
     end
   end
